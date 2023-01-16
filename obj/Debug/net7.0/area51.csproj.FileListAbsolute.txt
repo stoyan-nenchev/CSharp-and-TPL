@@ -1,0 +1,15 @@
+I:\area51\bin\Debug\net7.0\area51.exe
+I:\area51\bin\Debug\net7.0\area51.deps.json
+I:\area51\bin\Debug\net7.0\area51.runtimeconfig.json
+I:\area51\bin\Debug\net7.0\area51.dll
+I:\area51\bin\Debug\net7.0\area51.pdb
+I:\area51\obj\Debug\net7.0\area51.csproj.AssemblyReference.cache
+I:\area51\obj\Debug\net7.0\area51.GeneratedMSBuildEditorConfig.editorconfig
+I:\area51\obj\Debug\net7.0\area51.AssemblyInfoInputs.cache
+I:\area51\obj\Debug\net7.0\area51.AssemblyInfo.cs
+I:\area51\obj\Debug\net7.0\area51.csproj.CoreCompileInputs.cache
+I:\area51\obj\Debug\net7.0\area51.dll
+I:\area51\obj\Debug\net7.0\refint\area51.dll
+I:\area51\obj\Debug\net7.0\area51.pdb
+I:\area51\obj\Debug\net7.0\area51.genruntimeconfig.cache
+I:\area51\obj\Debug\net7.0\ref\area51.dll
