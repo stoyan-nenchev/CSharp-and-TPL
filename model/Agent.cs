@@ -11,6 +11,7 @@ public class Agent
         public bool hasLeftArea51 { get; set; }
         public bool decidesToLeave { get; set; }
         public Elevator elevator { get; set; }
+        public ManualResetEvent isRidingOnElevator { get; set; }
         public Agent(String securityLevel, Floor currentFloor, Elevator elevator)
         {
             this.securityLevel = securityLevel;
@@ -20,6 +21,7 @@ public class Agent
             this.decidesToLeave = false;
             this.elevator = elevator;
             setupAccess(this.securityLevel);
+            isRidingOnElevator = new ManualResetEvent(false);
         }
 
         static Random rand = new Random();
@@ -76,6 +78,7 @@ public class Agent
                                 elevatorMemoryButton = 0;
                                 elevatorIsTaken.Set();
                                 Thread.Sleep(1000);
+                                elevatorIsTaken.Reset();
                                 break;
                             } else {
                                 Console.WriteLine("Agent with security level {0} will press another button.", this.securityLevel);
@@ -90,6 +93,7 @@ public class Agent
                                 elevatorMemoryButton = 0;
                                 elevatorIsTaken.Set();
                                 Thread.Sleep(1000);
+                                elevatorIsTaken.Reset();
                                 break;
                             } else {
                                 elevatorMemoryButton = elevator.currentFloor.floorNumber;
@@ -176,16 +180,28 @@ public class Agent
             */
             switch(pressedButton) {
                 case 1:
-                elevator.moving(floorG, pressedButton);
+                elevator.pressedButton = pressedButton;
+                elevator.floorToMove = floorG;
+                elevator.elevatorBegginingToMove.Set();
+                this.isRidingOnElevator.WaitOne();
                 break;
                 case 2:
-                elevator.moving(floorS, pressedButton);
+                elevator.pressedButton = pressedButton;
+                elevator.floorToMove = floorS;
+                elevator.elevatorBegginingToMove.Set();
+                this.isRidingOnElevator.WaitOne();
                 break;
                 case 3:
-                elevator.moving(floorT1, pressedButton);
+                elevator.pressedButton = pressedButton;
+                elevator.floorToMove = floorT1;
+                elevator.elevatorBegginingToMove.Set();
+                this.isRidingOnElevator.WaitOne();
                 break;
                 case 4:
-                elevator.moving(floorT2, pressedButton);
+                elevator.pressedButton = pressedButton;
+                elevator.floorToMove = floorT2;
+                elevator.elevatorBegginingToMove.Set();
+                this.isRidingOnElevator.WaitOne();
                 break;
             }
         }

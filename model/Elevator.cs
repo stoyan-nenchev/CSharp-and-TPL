@@ -3,11 +3,28 @@ namespace Area51 {
     {
         public Floor currentFloor { get; set; }
         public Agent? agentUsingElevator { get; set; }
+        public ManualResetEvent elevatorBegginingToMove { get; set; }
+        public int pressedButton { get; set; }
+        public Floor? floorToMove { get; set; }
+        public bool noMoreAgentsToUseElevator { get; set; }
 
         public Elevator(Floor floor)
         {
             this.currentFloor = floor;
             this.agentUsingElevator = null;
+            elevatorBegginingToMove = new ManualResetEvent(false);
+            pressedButton = 0;
+            floorToMove = null;
+            noMoreAgentsToUseElevator = false;
+        }
+
+        
+        public void startElevator() {
+            while(!noMoreAgentsToUseElevator) {
+                elevatorBegginingToMove.WaitOne();
+                moving(this.floorToMove!, this.pressedButton);
+                elevatorBegginingToMove.Reset();
+            }
         }
 
         public void moving(Floor floorToMove, int pressedButton) {
@@ -25,6 +42,9 @@ namespace Area51 {
             } else {
                 Console.WriteLine("The elevator is empty.");
             }
+            elevatorBegginingToMove.Reset();
+            this.agentUsingElevator!.isRidingOnElevator.Set();
+            this.agentUsingElevator!.isRidingOnElevator.Reset();
         }
     
     }

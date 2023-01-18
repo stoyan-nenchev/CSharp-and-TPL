@@ -12,6 +12,8 @@
             Thread confidentialAgentThread = new Thread(confidentialAgent.enterArea51);
             Thread secretAgentThread = new Thread(secretAgent.enterArea51);
             Thread topSecretAgentThread = new Thread(topSecretAgent.enterArea51);
+
+            Thread elevatorThread = new Thread(elevator.startElevator);
             
             var agents = new List<Thread>();
             agents.Add(confidentialAgentThread);
@@ -21,8 +23,12 @@
             secretAgentThread.Start();
             confidentialAgentThread.Start();
             topSecretAgentThread.Start();
+            elevatorThread.Start();
             foreach (var a in agents) a.Join();
             Console.WriteLine("No more agents in Area51.");
+            elevator.noMoreAgentsToUseElevator = true;
+            elevatorThread.Join();
+            Console.WriteLine("Elevator stopped working.");
         }
     }
 }
